@@ -25,14 +25,18 @@ jobs:
     - run: npm test
   deploy:
     needs: test
+    
     permissions:
       contents: write
       pages: write
       id-token: write
+    
     environment:
       name: prodution
       url: ${{steps.deployment.outputs.page_url}}
+    
     runs-on: ubuntu-latest
+    
     steps:
       - name: chekckout repo
         uses: actions/checkckout@v4
@@ -53,6 +57,8 @@ jobs:
         with:
           path: './out'      
       - name: deploy
+        id: deployment
+        uses:  actions/deploy-pages@v4
     
       
       
